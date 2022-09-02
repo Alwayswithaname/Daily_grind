@@ -1,3 +1,5 @@
+var saveBtn = $('.saveBtn')
+
 $("#currentDay").text(moment().format('dddd MMMM Do YYYY'));
 
 function timeBlockColor() {
@@ -9,7 +11,7 @@ function timeBlockColor() {
 
         if (currentHour > hour) {
                 $(this).addClass("future");
-        } else if (currentHour == hour) {
+        } else if (currentHour === hour) {
                 $(this).addClass("present");
         } else {
                 $(this).addClass("past");
@@ -17,7 +19,27 @@ function timeBlockColor() {
     })
 };
 
+saveBtn.on("click", function(){
 
-var saveBtn = $('.saveBtn')
+    var time = $(this).siblings(".hour").text();
+    var sched = $(this).siblings(".sched").val();
 
-timeBlockColor()
+    localStorage.setItem(time, sched);
+});
+
+function planner() {
+
+    $(".hour").each(function (){
+        var currentHour = $(this).text();
+        var schedOtd = localStorage.getItem(currentHour);
+
+        if (schedOtd !== null) {
+            $(this).siblings(".sched").val(schedOtd);
+        }
+    });
+}
+
+
+timeBlockColor();
+
+planner();
