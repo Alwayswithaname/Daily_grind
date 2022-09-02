@@ -1,7 +1,8 @@
 var saveBtn = $('.saveBtn')
-
+// displays time and day
 $("#currentDay").text(moment().format('dddd MMMM Do YYYY'));
 
+// looks at time of day and color coats text blocks accordingly
 function timeBlockColor() {
     var hour = moment().hours();
     
@@ -19,6 +20,7 @@ function timeBlockColor() {
     })
 };
 
+// on click saves text in selected blocks
 saveBtn.on("click", function(){
 
     var time = $(this).siblings(".hour").text();
@@ -27,6 +29,7 @@ saveBtn.on("click", function(){
     localStorage.setItem(time, sched);
 });
 
+// grabs saved text from from locoal 
 function planner() {
 
     $(".hour").each(function (){
@@ -39,7 +42,6 @@ function planner() {
     });
 }
 
-
+// calling functions 
 timeBlockColor();
-
 planner();
